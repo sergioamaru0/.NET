@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6W/mMyYQziA=",
+  "dgSpecHash": "573ptg/8tTU=",
   "success": true,
-  "projectFilePath": "C:\\proysergio\\pruebas\\Portafolio\\.NETCOALLI\\TaskManager\\TaskManager.csproj",
+  "projectFilePath": "C:\\proysergio\\pruebas\\TaskManager\\TaskManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\braya\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\braya\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
