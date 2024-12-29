@@ -2,6 +2,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using TaskManager.DTO;
 using TaskManager.Model;
+using MongoDB.Bson;
 
 namespace TaskManager.Services
 {
@@ -9,10 +10,19 @@ namespace TaskManager.Services
     {
         private readonly IMongoCollection<TaskModel> _taskCollection;
         public TaskServices(IOptions<DatabaseSettings> databaseSettings)
-        {
-            var client = new MongoClient(databaseSettings.Value.ConnectionString);
-            var database = client.GetDatabase(databaseSettings.Value.DatabaseName);
-            _taskCollection = database.GetCollection<TaskModel>(databaseSettings.Value.CollectionName);
+        {   
+            var settings = MongoClientSettings.FromConnectionString(databaseSettings.Value.ConnectionString);
+            settings.ServerApi = new ServerApi(ServerApiVersion.V1);
+            var client = new MongoClient(settings);      
+            try{
+                
+                var database = client.GetDatabase(databaseSettings.Value.DatabaseName);
+                _taskCollection = database.GetCollection<TaskModel>(databaseSettings.Value.CollectionName);
+            }catch(MongoException ex){
+                throw new MongoException("Error al conectar con la base de datos", ex);
+            }
+            
+            
         }
         public async Task<List<TaskModel>> GetTasks()=>
             await _taskCollection.Find(task => true).ToListAsync();    
